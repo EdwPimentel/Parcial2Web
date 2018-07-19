@@ -16,6 +16,6 @@ public class Megusta {
     private Album album;
     @OneToOne
     private Post post;
-    //check
+    
     private boolean megusta;
 }
