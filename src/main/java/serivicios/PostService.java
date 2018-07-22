@@ -19,8 +19,9 @@ public class PostService {
         public void newComentario(Usuario user, Post post,Comentario comentario){
             em.getTransaction().begin();
             Usuario u = em.find(Usuario.class,user.getId());
-            Post post1 = em.find(Post.class,post.getId());
+            Post p = em.find(Post.class,post.getId());
             em.merge(u);
+            em.merge(p);
             em.getTransaction().commit();
 
         }
