@@ -5,6 +5,7 @@ import java.util.List;
 @Entity
 public class Post {
     @Id
+    @GeneratedValue
     private long id;
     @OneToOne
     private Usuario usuario;

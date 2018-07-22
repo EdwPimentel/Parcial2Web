@@ -53,6 +53,8 @@ public class Main {
           StringWriter writer = new StringWriter();
           Map<String, Object> atr = new HashMap<>();
           Template template = configuration.getTemplate("Template/signup.ftl");
+          if(req.queryParams("error")!=null)
+              atr.put("error",Integer.parseInt(req.queryParams("error")));
           template.process(atr,writer);
           return writer;
       });
@@ -104,11 +106,13 @@ public class Main {
           post.setDescripcion(descrip);
           post.setUsuario(usuario);
           postService.savePost(post);
-          usuarioService.addPost(usuario,post);
+          usuarioService.newPost(usuario,post);
           res.redirect("/home");
           return "";
 
       });
+
+
 
 
       post("/signup", (req, res) -> {
@@ -123,7 +127,7 @@ public class Main {
 
           if(usuarioService.checkUser(username)!=null){
               System.out.println(usuarioService.checkUser(username).getUsername());
-              res.redirect("/inicio?invalid=1");
+              res.redirect("/signup?error=1");
           }else{
               Usuario usuario = new Usuario();
               usuario.setNombre(nombre);
@@ -143,5 +147,7 @@ public class Main {
 
           return "";
       });
+
+
   }
 }

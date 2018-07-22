@@ -115,8 +115,8 @@
                                         <button type="submit" class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-picture"></i></a></li><li></a></li></ul>
                                     </form>
                                 </div>
-                                <#if usuario.Wall??>
-                                    <#list usuario.Wall as posts>
+                                <#if usuario.wall??>
+                                    <#list usuario.wall as posts>
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <img src="/img/150x150.gif" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>

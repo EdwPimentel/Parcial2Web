@@ -1,7 +1,14 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<#if error??>
+    <#if error=1>
+    <script>alert("El nombre de usuario ya esta ocupado");</script>
+    </#if>
+</#if>
 <!-- Include the above in your HEAD tag -->
+
 
 <div class="container">
     <title>Sign Up Form</title> <br>
@@ -10,32 +17,32 @@
         <div class="form-group" >
             <label for="Name" class="col-sm-4 control-label">First Name</label>
             <div class="col-sm-5">
-                <input type="text" name="nombre" placeholder="First Name" class="form-control" autofocus>
+                <input required="required" type="text" name="nombre" placeholder="First Name" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
             <label for="Apellido" class="col-sm-4 control-label">Last Name</label>
             <div class="col-sm-5">
-                <input type="text" name="apellido" placeholder="Last Name" class="form-control" autofocus>
+                <input required="required" type="text" name="apellido" placeholder="Last Name" class="form-control" autofocus>
                 <span class="help-block">Only your First Last name eg: Edward Pimentel</span>
             </div>
         </div>
         <div class="form-group">
             <label for="username" class="col-sm-4 control-label">Username</label>
             <div class="col-sm-5">
-                <input type="text" name="username" placeholder="User" class="form-control">
+                <input required="required" type="text" name="username" placeholder="User" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-4 control-label">Password</label>
             <div class="col-sm-5">
-                <input type="password" name="password" placeholder="Password" class="form-control">
+                <input required="required" type="password" name="password" placeholder="Password" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label for="birthDate" class="col-sm-4 control-label">Date of Birth</label>
             <div class="col-sm-5">
-                <input type="date" name="birthDate" class="form-control">
+                <input required="required" type="date" name="birthDate" class="form-control">
             </div>
         </div>
         <div class="form-group">

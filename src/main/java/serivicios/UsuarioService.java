@@ -37,7 +37,7 @@ public class UsuarioService {
         em.getTransaction().commit();
 
     }
-    public void addPost(Usuario user, Post post){
+    public void newPost(Usuario user, Post post){
         em.getTransaction().begin();
         Usuario u = em.find(Usuario.class, user.getId());
         u.getWall().add(post);
