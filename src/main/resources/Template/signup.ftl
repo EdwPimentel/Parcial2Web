@@ -4,18 +4,19 @@
 <!-- Include the above in your HEAD tag -->
 
 <div class="container">
-    <form class="form-horizontal" role="form">
-        <h2>Registration Form</h2>
-        <div class="form-group">
+    <title>Sign Up Form</title> <br>
+    <form action="/signup" method="post" class="form-horizontal" role="form">
+        <h1 align="center"> Register </h1><br>
+        <div class="form-group" >
             <label for="Name" class="col-sm-4 control-label">First Name</label>
             <div class="col-sm-5">
-                <input type="text" name="Nombre" placeholder="First Name" class="form-control" autofocus>
+                <input type="text" name="nombre" placeholder="First Name" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
             <label for="Apellido" class="col-sm-4 control-label">Last Name</label>
             <div class="col-sm-5">
-                <input type="text" name="Apellido" placeholder="Last Name" class="form-control" autofocus>
+                <input type="text" name="apellido" placeholder="Last Name" class="form-control" autofocus>
                 <span class="help-block">Only your First Last name eg: Edward Pimentel</span>
             </div>
         </div>

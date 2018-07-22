@@ -10,7 +10,6 @@
         <class>modelo.Image</class>
         <class>modelo.Post</class>
         <class>modelo.Usuario</class>
-        <class>modelo.Wall</class>
         <class>modelo.Megusta</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test"/>

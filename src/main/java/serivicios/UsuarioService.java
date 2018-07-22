@@ -19,4 +19,23 @@ public class UsuarioService {
         }
 
     }
+    public Usuario checkUser(String name){
+
+        try{
+            Query query = em.createQuery("select user from Usuario user where user.username = :username")
+                    .setParameter("username", name);
+            return (Usuario)query.getSingleResult();
+        } catch(NoResultException e){
+            return null;
+        }
+    }
+    public void saveUser(Usuario usuario){
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+
+    }
+
+
+
 }

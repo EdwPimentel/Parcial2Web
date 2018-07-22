@@ -1,5 +1,7 @@
 package modelo;
 
+import javafx.geometry.Pos;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,9 @@ public class Usuario {
     private String lugarTrabajo;
     private String lugarEstudio;
     private boolean admin;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Posts_Usuario", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "listaPostUsuario_id_PostUsuario") })
+    private List<Post> wall;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Amigos_Usuarios", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "listaAmigoUsuario_id_amigoUsuario") })
     private List<Usuario> friendlist;
@@ -117,4 +122,13 @@ public class Usuario {
     public void setFriendlist(List<Usuario> friendlist) {
         this.friendlist = friendlist;
     }
+
+    public List<Post> getWall() { return wall; }
+
+    public void setWall(List<Post> wall) {
+        this.wall = wall;
+    }
 }
+
+
+
