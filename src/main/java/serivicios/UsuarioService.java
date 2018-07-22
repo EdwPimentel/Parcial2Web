@@ -1,5 +1,6 @@
 package serivicios;
 
+import modelo.Post;
 import modelo.Usuario;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class UsuarioService {
         } catch(NoResultException e){
             return null;
         }
+
     }
     public void saveUser(Usuario usuario){
         em.getTransaction().begin();
@@ -35,7 +37,14 @@ public class UsuarioService {
         em.getTransaction().commit();
 
     }
+    public void addPost(Usuario user, Post post){
+        em.getTransaction().begin();
+        Usuario u = em.find(Usuario.class, user.getId());
+        u.getWall().add(post);
+        em.merge(u);
+        em.getTransaction().commit();
 
+    }
 
 
 }

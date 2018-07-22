@@ -5,15 +5,17 @@ import java.util.List;
 @Entity
 public class Image {
     @Id
+    @GeneratedValue
     private long id;
     @OneToOne
     private Usuario usuario;
     private String titulo;
     private String descripcion;
     @ManyToMany
-    @JoinTable(name = "Imagen_Usuarios", joinColumns = { @JoinColumn(name = "id_imaen") }, inverseJoinColumns = { @JoinColumn(name = "ListUsuariosImagen_Id_Usuario") })
+    @JoinTable(name = "Imagen_Usuarios", joinColumns = { @JoinColumn(name = "id_imagen") }, inverseJoinColumns = { @JoinColumn(name = "ListUsuariosImagen_Id_Usuario") })
     private List<Usuario> imageUsuarios;
-
+    @OneToMany
+    private List<Comentario> comentarios;
     public long getId() {
         return id;
     }

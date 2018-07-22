@@ -9,8 +9,9 @@ public class Post {
     @OneToOne
     private Usuario usuario;
     @OneToMany
-    @JoinTable(name = "Post_Tag", joinColumns = { @JoinColumn(name = "id_post") }, inverseJoinColumns = { @JoinColumn(name = "ListUsuariosPost_Id_Usuario") })
     private List<Usuario> usuarios;
+    @OneToMany
+    private List<Comentario> comentarios;
     private String descripcion;
     @OneToOne
     private Image imagen;

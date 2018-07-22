@@ -5,14 +5,11 @@ import javax.persistence.*;
 @Entity
 public class Comentario {
     @Id
+    @GeneratedValue
     private long id;
     private String texto;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private Usuario usuario;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Post post;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Image image;
 
     public long getId() {
         return id;

@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>Facebook Theme Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/css/facebook.css" rel="stylesheet">
+    <link href="css/facebook.css" rel="stylesheet">
 </head>
 
 <body>
@@ -107,36 +107,39 @@
                             <div class="col-sm-7 col-sm-offset-2">
                            <h3 align="center">${usuario.nombre} ${usuario.apellido}</h3>
                                 <div class="well">
-                                    <form class="form-horizontal" role="form">
+    <!--aqui-->                     <form action="/newPost" method="post" class="form-horizontal" role="form">
                                         <h4>What's New</h4>
                                         <div class="form-group" style="padding:14px;">
-                                            <textarea class="form-control" placeholder="Update your status"></textarea>
+                                            <textarea class="form-control" placeholder="Update your status" name="descripcion"></textarea>
                                         </div>
-                                        <button class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-picture"></i></a></li><li></a></li></ul>
+                                        <button type="submit" class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-picture"></i></a></li><li></a></li></ul>
                                     </form>
                                 </div>
+                                <#if usuario.Wall??>
+                                    <#list usuario.Wall as posts>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <img src="/img/150x150.gif" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                                                <div class="clearfix"></div>
+                                                <hr>
 
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
-                                    <div class="panel-body">
-                                        <img src="/img/150x150.gif" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
-                                        <div class="clearfix"></div>
-                                        <hr>
+                                                <p>${posts.descripcion}</p>
 
-                                        <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
+                                                <hr>
+                                                <form>
+                                                    <div class="input-group">
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                                        </div>
+                                                        <input class="form-control" placeholder="Add a comment.." type="text">
+                                                    </div>
+                                                </form>
 
-                                        <hr>
-                                        <form>
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-                                                </div>
-                                                <input class="form-control" placeholder="Add a comment.." type="text">
                                             </div>
-                                        </form>
+                                        </div>
+                                    </#list>
+                                </#if>
 
-                                    </div>
-                                </div>
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Portlet Heading</h4></div>

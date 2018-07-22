@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import freemarker.template.Template;
+import modelo.Post;
 import modelo.Usuario;
 import org.jasypt.util.text.BasicTextEncryptor;
+import serivicios.PostService;
 import serivicios.UsuarioService;
 import spark.Session;
 
@@ -18,6 +20,7 @@ import static spark.Spark.*;
 public class Main {
   public static void main(String[] args){
       UsuarioService usuarioService = new UsuarioService();
+      PostService postService = new PostService();
     staticFiles.location("/Template");
     Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
     configuration.setClassForTemplateLoading(Main.class, "/");
@@ -92,6 +95,19 @@ public class Main {
               res.redirect("/login");
           }
           return "";
+      });
+      post("/newPost", (req, res) -> {
+
+          Usuario usuario = req.session(true).attribute("usuario");
+          String descrip = req.queryParams("descripcion");
+          Post post = new Post();
+          post.setDescripcion(descrip);
+          post.setUsuario(usuario);
+          postService.savePost(post);
+          usuarioService.addPost(usuario,post);
+          res.redirect("/home");
+          return "";
+
       });
 
 
