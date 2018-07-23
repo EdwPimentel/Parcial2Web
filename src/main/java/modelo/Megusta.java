@@ -11,8 +11,6 @@ public class Megusta {
     @GeneratedValue
     private long id;
     @OneToOne
-    private Image image;
-    @OneToOne
     private Comentario comentario;
     @OneToOne
     private Album album;
@@ -26,14 +24,6 @@ public class Megusta {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public Comentario getComentario() {

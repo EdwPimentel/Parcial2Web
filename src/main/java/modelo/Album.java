@@ -10,7 +10,8 @@ public class Album {
     @OneToOne
     private Usuario usuario;
     @OneToMany
-    private List<Image> imagenes;
+    @JoinTable(name = "Posts_Album", joinColumns = { @JoinColumn(name = "id_album") }, inverseJoinColumns = { @JoinColumn(name = "listaPostAlbum_id_PostAlbum") })
+    private List<Post> imagenes;
     private String descripcion;
 
     public long getId() {
@@ -29,11 +30,11 @@ public class Album {
         this.usuario = usuario;
     }
 
-    public List<Image> getImagenes() {
+    public List<Post> getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(List<Image> imagenes) {
+    public void setImagenes(List<Post> imagenes) {
         this.imagenes = imagenes;
     }
 
