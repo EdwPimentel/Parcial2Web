@@ -113,7 +113,7 @@
                                             <textarea class="form-control" placeholder="Update your status" name="descripcion"></textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary pull-right" type="button">Post</button>
-                                    <ul class="list-inline"><li><label for="myfile"></label><input type="file" id="myfile" name="myfile"></input></li><!--<button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button>--></ul>
+                                    <ul class="list-inline"><li><label for="myfile"></label><input type="file" name="myfile"></li><!--<button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button>--></ul>
                                     </form>
                                     <!--form action="/upload" method="post" enctype="multipart/form-data">
                                         <ul class="list-inline"><li><label for="myfile"></label><input type="file" id="myfile" name="myfile"></input></li><button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button></ul>
@@ -123,7 +123,9 @@
                                     <#list usuario.wall as posts>
                                         <div class="panel panel-default">
                                             <div class="panel-body">
-                                               <img src="upload/temp/${posts.img}" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap<
+                                                <#if posts.img!="">
+                                               <img src="upload/temp/${posts.img}" class="img-fluid img-thumbnail">
+                                                </#if>
                                                 <div class="clearfix"></div>
                                                 <hr>
 
