@@ -13,6 +13,7 @@ public class Post {
     private List<Usuario> usuarios;
     @OneToMany
     private List<Comentario> comentarios;
+
     private String descripcion;
     @OneToOne
     private Image imagen;
@@ -56,4 +57,13 @@ public class Post {
     public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+
 }

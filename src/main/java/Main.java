@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import freemarker.template.Template;
+import modelo.Comentario;
 import modelo.Post;
 import modelo.Usuario;
 import org.jasypt.util.text.BasicTextEncryptor;
+import serivicios.ComentarioService;
 import serivicios.PostService;
 import serivicios.UsuarioService;
 import spark.Session;
@@ -21,7 +23,8 @@ public class Main {
   public static void main(String[] args){
       UsuarioService usuarioService = new UsuarioService();
       PostService postService = new PostService();
-    staticFiles.location("/Template");
+      ComentarioService comentarioService = new ComentarioService();
+      staticFiles.location("/Template");
     Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
     configuration.setClassForTemplateLoading(Main.class, "/");
 
@@ -64,6 +67,7 @@ public class Main {
           Map<String, Object> atr = new HashMap<>();
           Template template = configuration.getTemplate("Template/home.ftl");
           atr.put("usuario",usuario);
+
           template.process(atr,writer);
           return writer;
       });
@@ -107,6 +111,22 @@ public class Main {
           post.setUsuario(usuario);
           postService.savePost(post);
           usuarioService.newPost(usuario,post);
+          res.redirect("/home");
+          return "";
+
+      });
+      post("/comentario/:post", (req, res) -> {
+
+          Usuario usuario = req.session(true).attribute("usuario");
+          String texto = req.queryParams("texto");
+          Long p = Long.parseLong(req.params("post"));
+          Comentario comen = new Comentario();
+          comen.setTexto(texto);
+          comen.setUsuario(usuario);
+          comentarioService.saveComentario(comen);
+          postService.newComentario(postService.findPost(p),comen);
+          int im = postService.findIndex(postService.findPost(p).getComentarios(),postService.findPost(p).getId());
+          usuario.getWall().get(im).getComentarios().add(comen);
           res.redirect("/home");
           return "";
 

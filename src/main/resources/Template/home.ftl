@@ -126,12 +126,20 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
-                                                <form>
+                                                     <#list posts.comentarios as comentarios>
+                                                         <ul>
+                                        <li><b>${comentarios.usuario.nombre} ${comentarios.usuario.apellido}</b> ${comentarios.texto}</li>
+                                                         </ul>
+                                                     </#list>
+
+                                                <form action="/comentario/${posts.id}" method="post">
                                                     <div class="input-group">
                                                         <div class="input-group-btn">
-                                                            <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+                                                            <div class="input-group-btn">
+                                             <button class="btn btn-default">+tag</button><input class="form-control" placeholder="Add a comment.." type="text" name="texto">
+                                                            </div>
+
                                                         </div>
-                                                        <input class="form-control" placeholder="Add a comment.." type="text">
                                                     </div>
                                                 </form>
 
