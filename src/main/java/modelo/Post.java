@@ -15,8 +15,16 @@ public class Post {
     private List<Comentario> comentarios;
 
     private String descripcion;
-    @OneToOne
-    private Image imagen;
+
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public long getId() {
         return id;
@@ -48,14 +56,6 @@ public class Post {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Image getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(Image imagen) {
-        this.imagen = imagen;
     }
 
     public List<Comentario> getComentarios() {

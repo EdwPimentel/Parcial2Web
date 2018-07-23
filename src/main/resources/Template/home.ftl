@@ -107,13 +107,17 @@
                             <div class="col-sm-7 col-sm-offset-2">
                            <h3 align="center">${usuario.nombre} ${usuario.apellido}</h3>
                                 <div class="well">
-    <!--aqui-->                     <form action="/newPost" method="post" class="form-horizontal" role="form">
+    <!--aqui-->                     <form action="/newPost" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
                                         <h4>What's New</h4>
                                         <div class="form-group" style="padding:14px;">
                                             <textarea class="form-control" placeholder="Update your status" name="descripcion"></textarea>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-picture"></i></a></li><li></a></li></ul>
+                                        <button type="submit" class="btn btn-primary pull-right" type="button">Post</button>
+                                    <ul class="list-inline"><li><label for="myfile"></label><input type="file" id="myfile" name="myfile"></input></li><!--<button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button>--></ul>
                                     </form>
+                                    <!--form action="/upload" method="post" enctype="multipart/form-data">
+                                        <ul class="list-inline"><li><label for="myfile"></label><input type="file" id="myfile" name="myfile"></input></li><button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button></ul>
+                                    </form>-->
                                 </div>
                                 <#if usuario.wall??>
                                     <#list usuario.wall as posts>
