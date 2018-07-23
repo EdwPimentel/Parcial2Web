@@ -716,7 +716,7 @@ S2.define('select2/utils',[
     var overflowX = el.style.overflowX;
     var overflowY = el.style.overflowY;
 
-    //Check both x and y declarations
+    //Check both upload and y declarations
     if (overflowX === overflowY &&
         (overflowY === 'hidden' || overflowY === 'visible')) {
       return false;
@@ -753,7 +753,7 @@ S2.define('select2/utils',[
 
   // Append an array of jQuery nodes to a given element.
   Utils.appendMany = function ($element, $nodes) {
-    // jQuery 1.7.x does not support $.fn.append() with an array
+    // jQuery 1.7.upload does not support $.fn.append() with an array
     // Fall back to a jQuery object collection using $.fn.add()
     if ($.fn.jquery.substr(0, 3) === '1.7') {
       var $jqNodes = $();
@@ -5004,7 +5004,7 @@ S2.define('select2/options',[
     var dataset = {};
 
     // Prefer the element's `dataset` attribute if it exists
-    // jQuery 1.x does not correctly handle data attributes with multiple dashes
+    // jQuery 1.upload does not correctly handle data attributes with multiple dashes
     if ($.fn.jquery && $.fn.jquery.substr(0, 2) == '1.' && $e[0].dataset) {
       dataset = $.extend(true, {}, $e[0].dataset, $e.data());
     } else {

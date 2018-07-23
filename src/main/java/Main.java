@@ -32,9 +32,12 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args) {
 
-        File uploadDir = new File("upload/temp");
-        uploadDir.mkdir();// create the upload directory if it doesn't exist
-        staticFiles.externalLocation("upload/temp");
+        File uploadDir = new File("src/main/resources/Template/upload");
+        File uploadDir2 = new File("src/main/resources/Template/upload/temp");
+        uploadDir.mkdir();
+        uploadDir2.mkdir();
+        // create the upload directory if it doesn't exist
+        staticFiles.externalLocation("src/main/resources/Template/upload/temp");
 
 
         UsuarioService usuarioService = new UsuarioService();
@@ -118,12 +121,12 @@ public class Main {
             return "";
         });
         post("/newPost", (req, res) -> {
-            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/upload/temp"));
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp/"));
             Part filePart = req.raw().getPart("myfile");
             String fileName= filePart.getSubmittedFileName();
             if(filePart!=null) {
                 try (InputStream inputStream = filePart.getInputStream()) {
-                    OutputStream outputStream = new FileOutputStream("/upload/temp/" + filePart.getSubmittedFileName());
+                    OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
                     IOUtils.copy(inputStream, outputStream);
                     outputStream.close();
                 }

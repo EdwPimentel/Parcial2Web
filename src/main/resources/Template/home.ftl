@@ -123,7 +123,7 @@
                                     <#list usuario.wall as posts>
                                         <div class="panel panel-default">
                                             <div class="panel-body">
-                                                <img src="/img/150x150.gif" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
+                                               <img src="upload/temp/${posts.img}" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap<
                                                 <div class="clearfix"></div>
                                                 <hr>
 
