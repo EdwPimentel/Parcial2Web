@@ -32,9 +32,9 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args) {
 
-        File uploadDir = new File("upload");
-        uploadDir.mkdir(); // create the upload directory if it doesn't exist
-        staticFiles.externalLocation("upload");
+        File uploadDir = new File("upload/temp");
+        uploadDir.mkdir();// create the upload directory if it doesn't exist
+        staticFiles.externalLocation("upload/temp");
 
 
         UsuarioService usuarioService = new UsuarioService();
@@ -83,7 +83,6 @@ public class Main {
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/home.ftl");
             atr.put("usuario", usuario);
-
             template.process(atr, writer);
             return writer;
         });
@@ -119,11 +118,12 @@ public class Main {
             return "";
         });
         post("/newPost", (req, res) -> {
-            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("upload/temp"));
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/upload/temp"));
             Part filePart = req.raw().getPart("myfile");
+            String fileName= filePart.getSubmittedFileName();
             if(filePart!=null) {
                 try (InputStream inputStream = filePart.getInputStream()) {
-                    OutputStream outputStream = new FileOutputStream("upload/temp/" + filePart.getSubmittedFileName());
+                    OutputStream outputStream = new FileOutputStream("/upload/temp/" + filePart.getSubmittedFileName());
                     IOUtils.copy(inputStream, outputStream);
                     outputStream.close();
                 }
@@ -134,6 +134,7 @@ public class Main {
             Post post = new Post();
             post.setDescripcion(descrip);
             post.setUsuario(usuario);
+            post.setImg(fileName);
             postService.savePost(post);
             usuarioService.newPost(usuario, post);
             res.redirect("/home");
