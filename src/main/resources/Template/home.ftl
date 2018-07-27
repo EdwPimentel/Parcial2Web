@@ -132,6 +132,7 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
+
                                                      <#list posts.comentarios as comentarios>
                                                          <ul>
                                         <li><b>${comentarios.usuario.nombre} ${comentarios.usuario.apellido}</b> ${comentarios.texto}</li>
