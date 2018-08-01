@@ -132,11 +132,18 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
-                                                     <#list posts.comentarios as comentarios>
-                                                         <ul>
-                                        <li><b>${comentarios.usuario.nombre} ${comentarios.usuario.apellido}</b> ${comentarios.texto}</li>
-                                                         </ul>
-                                                     </#list>
+                                        <#if comentarios??>
+                                            <#list comentarios as com>
+                                            <#if com.post.id == posts.id>
+                                                <ul>
+                                                    <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}</li>
+
+                                                </ul>
+                                            </#if>
+
+                                            </#list>
+                                        </#if>
+
 
                                                 <form action="/comentario/${posts.id}" method="post">
                                                     <div class="input-group">
@@ -243,8 +250,7 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/js/jquery.js"></script>
+<span class="likebtn-wrapper" data-identifier="likebutton" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
 <script type="text/javascript" src="/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

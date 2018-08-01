@@ -18,10 +18,9 @@ public class PostService {
         em.persist(post);
         em.getTransaction().commit();
     }
-        public void newComentario(Post post,Comentario comentario){
+        public void newComentario(Post post){
             em.getTransaction().begin();
             Post p = em.find(Post.class,post.getId());
-            p.getComentarios().add(comentario);
             em.merge(p);
             em.getTransaction().commit();
 

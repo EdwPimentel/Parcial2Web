@@ -4,12 +4,10 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
+import java.text.NumberFormat;
+import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import freemarker.template.Template;
 import modelo.Comentario;
@@ -32,18 +30,15 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args) {
 
-        File uploadDir = new File("src/main/resources/Template/upload");
-        File uploadDir2 = new File("src/main/resources/Template/upload/temp");
-        uploadDir.mkdir();
-        uploadDir2.mkdir();
-        // create the upload directory if it doesn't exist
-        staticFiles.externalLocation("src/main/resources/Template/upload/temp");
+
+        //staticFiles.externalLocation("src/main/resources/Template/upload/temp");
+        staticFiles.externalLocation("src/main/resources/Template");
 
 
         UsuarioService usuarioService = new UsuarioService();
         PostService postService = new PostService();
         ComentarioService comentarioService = new ComentarioService();
-        staticFiles.location("/Template");
+        //staticFiles.location("/Template");
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
 
@@ -85,7 +80,11 @@ public class Main {
             StringWriter writer = new StringWriter();
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/home.ftl");
-            atr.put("usuario", usuario);
+            List<Comentario> comentarios = comentarioService.getComentarios();
+          //  List<Megusta> reaccions = reaccionORM.getReacciones();
+            atr.put("usuario",usuario);
+            atr.put("comentarios",comentarios);
+          //  atr.put("reacciones",reaccions);
             template.process(atr, writer);
             return writer;
         });
@@ -122,22 +121,35 @@ public class Main {
         });
         post("/newPost", (req, res) -> {
             req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp/"));
+
             Part filePart = req.raw().getPart("myfile");
-            String fileName= filePart.getSubmittedFileName();
-            if(filePart!=null) {
-                try (InputStream inputStream = filePart.getInputStream()) {
-                    OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
-                    IOUtils.copy(inputStream, outputStream);
-                    outputStream.close();
-                }
+
+            try (InputStream inputStream = filePart.getInputStream()) {
+
+                OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
+                IOUtils.copy(inputStream, outputStream);
+                outputStream.close();
+            } catch (FileNotFoundException e) {
+                Usuario usuario = req.session(true).attribute("usuario");
+                String descrip = req.queryParams("descripcion");
+                Post post = new Post();
+                post.setDescripcion(descrip);
+                post.setUsuario(usuario);
+                post.setImg("");
+                postService.savePost(post);
+                usuarioService.newPost(usuario, post);
+                res.redirect("/home");
+                return "";
+
             }
+
 
             Usuario usuario = req.session(true).attribute("usuario");
             String descrip = req.queryParams("descripcion");
             Post post = new Post();
             post.setDescripcion(descrip);
             post.setUsuario(usuario);
-            post.setImg(fileName);
+            post.setImg(filePart.getSubmittedFileName());
             postService.savePost(post);
             usuarioService.newPost(usuario, post);
             res.redirect("/home");
@@ -146,17 +158,17 @@ public class Main {
         });
 
         post("/comentario/:post", (req, res) -> {
-
             Usuario usuario = req.session(true).attribute("usuario");
             String texto = req.queryParams("texto");
-            Long p = Long.parseLong(req.params("post"));
+            String postid = req.params("post").replace(",", "");
+            Long p = Long.parseLong(postid);
             Comentario comen = new Comentario();
             comen.setTexto(texto);
             comen.setUsuario(usuario);
+            comen.setPost(postService.findPost(p));
             comentarioService.saveComentario(comen);
-            postService.newComentario(postService.findPost(p), comen);
-            int im = postService.findIndex(postService.findPost(p).getComentarios(), postService.findPost(p).getId());
-            usuario.getWall().get(im).getComentarios().add(comen);
+         //   postService.newComentario(postService.findPost(p), comen);
+         //   int im = postService.findIndex(postService.findPost(p).getComentarios(), postService.findPost(p).getId());
             res.redirect("/home");
             return "";
 
@@ -195,20 +207,6 @@ public class Main {
             return "";
         });
 
-    /*    post("/upload", (req, res) -> {
-            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("upload/temp"));
-            Part filePart = req.raw().getPart("myfile");
-            if(filePart!=null) {
-                try (InputStream inputStream = filePart.getInputStream()) {
-                    OutputStream outputStream = new FileOutputStream("upload/temp/" + filePart.getSubmittedFileName());
-                    IOUtils.copy(inputStream, outputStream);
-                    outputStream.close();
-                }
-            }
-            res.redirect("/home");
-            return "";
-        });*/
 
-        }
-
+    }
 }
