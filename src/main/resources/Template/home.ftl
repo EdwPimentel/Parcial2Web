@@ -136,6 +136,7 @@
                                                      <#list posts.comentarios as comentarios>
                                                          <ul>
                                         <li><b>${comentarios.usuario.nombre} ${comentarios.usuario.apellido}</b> ${comentarios.texto}</li>
+
                                                          </ul>
                                                      </#list>
 
@@ -244,8 +245,7 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/js/jquery.js"></script>
+<span class="likebtn-wrapper" data-identifier="likebutton" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
 <script type="text/javascript" src="/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

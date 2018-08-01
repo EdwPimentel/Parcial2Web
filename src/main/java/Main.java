@@ -31,7 +31,6 @@ public class Main {
     public static void main(String[] args) {
 
 
-
         //staticFiles.externalLocation("src/main/resources/Template/upload/temp");
         staticFiles.externalLocation("src/main/resources/Template");
 
@@ -121,51 +120,58 @@ public class Main {
 
             Part filePart = req.raw().getPart("myfile");
 
-                try (InputStream inputStream = filePart.getInputStream()) {
+            try (InputStream inputStream = filePart.getInputStream()) {
 
-                    OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
-                    IOUtils.copy(inputStream, outputStream);
-                    outputStream.close();
-                }catch (FileNotFoundException e){
-                    Usuario usuario = req.session(true).attribute("usuario");
-                    String descrip = req.queryParams("descripcion");
-                    Post post = new Post();
-                    post.setDescripcion(descrip);
-                    post.setUsuario(usuario);
-                    post.setImg("");
-                    postService.savePost(post);
-                    usuarioService.newPost(usuario, post);
-                    res.redirect("/home");
-                    return "";
-
-                }
-
-
+                OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
+                IOUtils.copy(inputStream, outputStream);
+                outputStream.close();
+            } catch (FileNotFoundException e) {
                 Usuario usuario = req.session(true).attribute("usuario");
                 String descrip = req.queryParams("descripcion");
                 Post post = new Post();
                 post.setDescripcion(descrip);
                 post.setUsuario(usuario);
-                post.setImg(filePart.getSubmittedFileName());
+                post.setImg("");
                 postService.savePost(post);
                 usuarioService.newPost(usuario, post);
                 res.redirect("/home");
                 return "";
+
+            }
+
+
+            Usuario usuario = req.session(true).attribute("usuario");
+            String descrip = req.queryParams("descripcion");
+            Post post = new Post();
+            post.setDescripcion(descrip);
+            post.setUsuario(usuario);
+            post.setImg(filePart.getSubmittedFileName());
+            postService.savePost(post);
+            usuarioService.newPost(usuario, post);
+            res.redirect("/home");
+            return "";
 
         });
 
         post("/comentario/:post", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             String texto = req.queryParams("texto");
-            String postid = req.params("post").replace(",","");
+            String postid = req.params("post").replace(",", "");
             Long p = Long.parseLong(postid);
             Comentario comen = new Comentario();
             comen.setTexto(texto);
             comen.setUsuario(usuario);
             comentarioService.saveComentario(comen);
-            postService.newComentario(postService.findPost(p), comen);
-            int im = postService.findIndex(postService.findPost(p).getComentarios(), postService.findPost(p).getId());
-            usuario.getWall().get(im).getComentarios().add(comen);
+         //   postService.newComentario(postService.findPost(p), comen);
+         //   int im = postService.findIndex(postService.findPost(p).getComentarios(), postService.findPost(p).getId());
+            int index = 0;
+            postService.findPost(p).getComentarios().add(comen);
+            for(int i = 0; i< usuario.getWall().size(); i++){
+                if(usuario.getWall().get(i).getId() == p)
+                    index = i;
+            }
+            usuarioService.getUsuarioId(usuario.getId()).getWall().get(index).getComentarios().add(comen);
+            postService.newComentario(postService.findPost(p));
             res.redirect("/home");
             return "";
 
@@ -204,20 +210,6 @@ public class Main {
             return "";
         });
 
-    /*    post("/upload", (req, res) -> {
-            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("upload/temp"));
-            Part filePart = req.raw().getPart("myfile");
-            if(filePart!=null) {
-                try (InputStream inputStream = filePart.getInputStream()) {
-                    OutputStream outputStream = new FileOutputStream("upload/temp/" + filePart.getSubmittedFileName());
-                    IOUtils.copy(inputStream, outputStream);
-                    outputStream.close();
-                }
-            }
-            res.redirect("/home");
-            return "";
-        });*/
 
-        }
-
+    }
 }

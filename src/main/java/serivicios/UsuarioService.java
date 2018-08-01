@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class UsuarioService {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("perunit");
     EntityManager em = emf.createEntityManager();
+
     public Usuario login(String name, String password){
 
         try{
@@ -43,6 +44,17 @@ public class UsuarioService {
         u.getWall().add(post);
         em.merge(u);
         em.getTransaction().commit();
+
+    }
+    public Usuario getUsuarioId(Long id){
+
+        try{
+            Query query = em.createQuery("select u from Usuario u where u.id = :id")
+                    .setParameter("id", id);
+            return (Usuario)query.getSingleResult();
+        } catch(NoResultException e){
+            return null;
+        }
 
     }
 
