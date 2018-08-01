@@ -132,13 +132,18 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
+                                        <#if comentarios??>
+                                            <#list comentarios as com>
+                                            <#if com.post.id == posts.id>
+                                                <ul>
+                                                    <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}</li>
 
-                                                     <#list posts.comentarios as comentarios>
-                                                         <ul>
-                                        <li><b>${comentarios.usuario.nombre} ${comentarios.usuario.apellido}</b> ${comentarios.texto}</li>
+                                                </ul>
+                                            </#if>
 
-                                                         </ul>
-                                                     </#list>
+                                            </#list>
+                                        </#if>
+
 
                                                 <form action="/comentario/${posts.id}" method="post">
                                                     <div class="input-group">

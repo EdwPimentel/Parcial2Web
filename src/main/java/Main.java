@@ -80,7 +80,11 @@ public class Main {
             StringWriter writer = new StringWriter();
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/home.ftl");
-            atr.put("usuario", usuario);
+            List<Comentario> comentarios = comentarioService.getComentarios();
+          //  List<Megusta> reaccions = reaccionORM.getReacciones();
+            atr.put("usuario",usuario);
+            atr.put("comentarios",comentarios);
+          //  atr.put("reacciones",reaccions);
             template.process(atr, writer);
             return writer;
         });
@@ -161,17 +165,10 @@ public class Main {
             Comentario comen = new Comentario();
             comen.setTexto(texto);
             comen.setUsuario(usuario);
+            comen.setPost(postService.findPost(p));
             comentarioService.saveComentario(comen);
          //   postService.newComentario(postService.findPost(p), comen);
          //   int im = postService.findIndex(postService.findPost(p).getComentarios(), postService.findPost(p).getId());
-            int index = 0;
-            postService.findPost(p).getComentarios().add(comen);
-            for(int i = 0; i< usuario.getWall().size(); i++){
-                if(usuario.getWall().get(i).getId() == p)
-                    index = i;
-            }
-            usuarioService.getUsuarioId(usuario.getId()).getWall().get(index).getComentarios().add(comen);
-            postService.newComentario(postService.findPost(p));
             res.redirect("/home");
             return "";
 

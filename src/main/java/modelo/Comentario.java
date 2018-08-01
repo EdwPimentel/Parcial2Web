@@ -13,6 +13,17 @@ public class Comentario {
 
     private Usuario usuario;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Post post;
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     public long getId() {
         return id;
     }

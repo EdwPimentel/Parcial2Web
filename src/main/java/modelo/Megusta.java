@@ -1,21 +1,25 @@
 package modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Megusta {
     @Id
     @GeneratedValue
     private long id;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "ID_Usuario")
+    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "ID_Comentario")
     private Comentario comentario;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "ID_Album")
     private Album album;
-    @OneToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
+
     private boolean megusta;
 
     public long getId() {

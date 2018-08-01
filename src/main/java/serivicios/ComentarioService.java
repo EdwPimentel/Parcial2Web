@@ -2,9 +2,8 @@ package serivicios;
 
 import modelo.Comentario;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 public class ComentarioService {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("perunit");
@@ -13,6 +12,15 @@ public class ComentarioService {
         em.getTransaction().begin();
         em.persist(c);
         em.getTransaction().commit();
+
+    }
+    public List<Comentario> getComentarios(){
+        try{
+            Query query = em.createQuery("select c from Comentario c");
+            return (List<Comentario>)query.getResultList();
+        }catch (NoResultException e){
+            return null;
+        }
 
     }
 }

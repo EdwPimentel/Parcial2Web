@@ -9,10 +9,6 @@ public class Post {
     private long id;
     @OneToOne
     private Usuario usuario;
-    @OneToMany
-    private List<Usuario> usuarios;
-    @OneToMany
-    private List<Comentario> comentarios;
 
     private String descripcion;
 
@@ -42,14 +38,6 @@ public class Post {
         this.usuario = usuario;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -58,12 +46,5 @@ public class Post {
         this.descripcion = descripcion;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
-    }
 
 }
