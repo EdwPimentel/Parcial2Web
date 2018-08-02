@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 public class MegustaService {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pUnit");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("perunit");
     EntityManager em = emf.createEntityManager();
 
     public void guardarLike(Megusta r){
@@ -19,7 +19,7 @@ public class MegustaService {
 
     }
 
-    public List<Megusta> getMegustaes(){
+    public List<Megusta> getMegusta(){
 
         try{
             Query query = em.createQuery("select g from Megusta g");
@@ -29,17 +29,17 @@ public class MegustaService {
             return null;
         }
     }
-    public void deleteLike(Megusta r){
+    public void deleteMegusta(Megusta g){
         em.getTransaction().begin();
-        Megusta re = em.find(Megusta.class,r.getId());
+        Megusta re = em.find(Megusta.class,g.getId());
         em.remove(re);
         em.getTransaction().commit();
     }
 
-    public void updateLike(Megusta r, boolean valor){
+    public void updateMegusta(Megusta g, boolean valor){
         em.getTransaction().begin();
-        r.setMegusta(valor);
-        em.merge(r);
+        g.setMegusta(valor);
+        em.merge(g);
         em.getTransaction().commit();
     }
 
