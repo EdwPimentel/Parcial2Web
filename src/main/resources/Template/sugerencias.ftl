@@ -109,10 +109,10 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Posibles amigos</h4></div>
                                     <#list sugerAmigo as sugMa>
-                                    <form>
+                                    <form action="/addFriend/${sugMa.id}" method="post">
                                     <div class="panel-body">
                                     <#if usuario.id!=sugMa.id>
-                                    <p>${sugMa.nombre} ${sugMa.apellido}</p>
+                                    <li>${sugMa.nombre} ${sugMa.apellido} </li><button type="submit" class="btn btn-primary btn-sm">Agregar</button>
                                     </#if>
                                     </form>
                                     </#list>

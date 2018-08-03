@@ -75,6 +75,17 @@ public class UsuarioService {
         }
 
     }
+    public void addFriend(Usuario usuario, Usuario amigo){
+        em.getTransaction().begin();
+        Usuario u = em.find(Usuario.class,usuario.getId());
+        u.getFriendlist().add(amigo);
+        Usuario a = em.find(Usuario.class,amigo.getId());
+        a.getFriendlist().add(usuario);
+        em.merge(u);
+        em.merge(a);
+        em.getTransaction().commit();
+
+    }
 
 
 }

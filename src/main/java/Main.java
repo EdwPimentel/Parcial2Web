@@ -83,6 +83,26 @@ public class Main {
             return writer;
         });
 
+        post("/addFriend/:idAm", (req, res) -> {
+
+            Usuario usuario = req.session(true).attribute("usuario");
+            String texto = req.params("idAm").replace(",", "");
+            Usuario amigo = usuarioService.getUsuarioId(Long.parseLong(texto));
+            if(usuario.getFriendlist().size()==0)
+                usuarioService.addFriend(usuario,amigo);
+
+            for(int i = 0; i<usuario.getFriendlist().size(); i++){
+                if(usuario.getFriendlist().get(i).getId()!=(amigo.getId())){
+                    usuarioService.addFriend(usuario,amigo);
+
+                }
+            }
+
+            res.redirect("/home");
+            return "";
+
+        });
+
         get("/home", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             StringWriter writer = new StringWriter();
