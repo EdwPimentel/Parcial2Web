@@ -84,7 +84,7 @@ public class Main {
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/home.ftl");
             List<Comentario> comentarios = comentarioService.getComentarios();
-            List<Megusta> megusta = megustaService.getMegustaes();
+            List<Megusta> megusta = megustaService.getMegusta();
             atr.put("usuario",usuario);
             atr.put("comentarios",comentarios);
             atr.put("likes",megusta);
