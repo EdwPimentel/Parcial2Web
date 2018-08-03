@@ -76,7 +76,7 @@
                                 <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
                             </li>
                             <li>
-                                <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+                                <a href="/sugerencias" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Sugerencia de amigos</a>
                             </li>
                             <li>
                                 <a href="#"><span class="badge">badge</span></a>
@@ -84,14 +84,12 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
-                                <ul class="dropdown-menu">
+                                <a href="/logout"><i class="glyphicon glyphicon-user"></i> Logout</a>
+                               <!-- <ul class="dropdown-menu">
                                     <li><a href="/logout">Log Out</a></li>
-                                    <li><a href="">More</a></li>
-                                    <li><a href="">More</a></li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>-->
                     </nav>
                 </div>
                 <!-- /top nav -->
@@ -274,6 +272,7 @@
 
 
 <!--post modal-->
+
 <div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -296,6 +295,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

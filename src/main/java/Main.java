@@ -71,6 +71,18 @@ public class Main {
             template.process(atr, writer);
             return writer;
         });
+
+        get("/sugerencias", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template template = configuration.getTemplate("Template/sugerencias.ftl");
+            atr.put("usuario",usuario);
+            atr.put("sugerAmigo",usuarioService.sugerirAmigos(usuario));
+            template.process(atr, writer);
+            return writer;
+        });
+
         get("/home", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             StringWriter writer = new StringWriter();

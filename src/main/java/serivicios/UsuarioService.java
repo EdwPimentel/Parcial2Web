@@ -4,6 +4,7 @@ import modelo.Post;
 import modelo.Usuario;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class UsuarioService {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("perunit");
@@ -46,6 +47,23 @@ public class UsuarioService {
         em.getTransaction().commit();
 
     }
+    public List<Usuario> sugerirAmigos(Usuario usuario){
+        try{
+            Query query = em.createQuery("select u from Usuario u where u.lugarEstudio = ?1" +
+                    " or u.lugarNac = ?2 or u.lugarVive = ?3 or u.lugarTrabajo = ?4 and u.id != ?5")
+                    .setParameter(1,usuario.getLugarEstudio())
+                    .setParameter(2,usuario.getLugarNac())
+                    .setParameter(3,usuario.getLugarVive())
+                    .setParameter(4,usuario.getLugarTrabajo())
+                    .setParameter(5,usuario.getId());
+
+            return (List<Usuario>)query.getResultList();
+        }catch (NoResultException e){
+            return null;
+        }
+
+    }
+
     public Usuario getUsuarioId(Long id){
 
         try{
