@@ -232,6 +232,35 @@ public class Main {
             return "";
         });
 
+        post("/post/:id/like", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            String postId = req.params("id").replace(",", "");
+            Long idPost = Long.parseLong(postId);
+            Megusta megusta = new Megusta();
+            megusta.setUsuario(usuario);
+            megusta.setMegusta(true);
+          //  megusta.setTiempo(getFechaActual());
+            Post post = postService.findPost(idPost);
+            megusta.setPost(post);
+            Megusta re = megustaService.CheckLikePost(usuario,post);
+
+            if(re == null){
+                megustaService.guardarLike(megusta);
+                res.redirect("/home");
+
+            }else{
+                megustaService.deleteMegusta(re);
+
+                if(!re.isMegusta())
+                    megustaService.updateMegusta(re,true);
+
+                res.redirect("/home");
+
+            }
+
+            return "";
+        });
+
 
     }
 }

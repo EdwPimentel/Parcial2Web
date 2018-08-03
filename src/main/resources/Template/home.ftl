@@ -122,6 +122,7 @@
                                 </div>
                                 <#if usuario.wall??>
                                     <#list usuario.wall as posts>
+
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <#if posts.img!="">
@@ -133,7 +134,27 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
-                                                <button class="btn btn-default">Like</button>
+                                                <#if megusta??>
+                                                    <#assign yes =0>
+                                                    <#list megusta as gusta>
+                                                    <#if gusta.post??>
+                                                        <#if gusta.post.id == posts.id>
+                                                            <#if gusta.megusta == true>
+                                                            <#assign yes = 1>
+                                                            </#if>
+                                                        </#if>
+                                                    </#if>
+                                                    </#list>
+                                                </#if>
+                                                <#if yes == 1>
+                                                   <form action="/post/${posts.id}/like" method="post">
+                                                       <button class="btn btn-primary">Like</button>
+                                                   </form>
+                                                <#else>
+                                                <form action="/post/${posts.id}/like" method="post">
+                                                    <button class="btn btn-default">Like</button>
+                                                </form>
+                                                </#if>
                                                 <hr>
                                         <#if comentarios??>
                                             <#list comentarios as com>
@@ -143,11 +164,13 @@
                                                     <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}<form action="/comentario/${com.id}/like" method="post">
                                                       <#if megusta??>
                                                           <#list megusta as gusta>
+                                                          <#if gusta.comentario??>
                                                         <#if com.id==gusta.comentario.id>
                                                             <#if gusta.megusta==true>
                                                             <#assign yes = 1>
                                                             </#if>
                                                         </#if>
+                                                       </#if>
                                                           </#list>
 
                                                      </#if>
