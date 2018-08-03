@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 public class MegustaService {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pUnit");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("perunit");
     EntityManager em = emf.createEntityManager();
 
     public void guardarLike(Megusta r){

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Facebook Theme Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="js/jquery.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -250,11 +251,10 @@
         </div>
     </div>
 </div>
-<span class="likebtn-wrapper" data-identifier="likebutton" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
-<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('[data-toggle=offcanvas]').click(function() {
+            $('[data-toggle=offcanvas]').click(function() {
             $(this).toggleClass('visible-xs text-center');
             $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
             $('.row-offcanvas').toggleClass('active');

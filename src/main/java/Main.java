@@ -11,10 +11,12 @@ import java.text.SimpleDateFormat;
 
 import freemarker.template.Template;
 import modelo.Comentario;
+import modelo.Megusta;
 import modelo.Post;
 import modelo.Usuario;
 import org.jasypt.util.text.BasicTextEncryptor;
 import serivicios.ComentarioService;
+import serivicios.MegustaService;
 import serivicios.PostService;
 import serivicios.UsuarioService;
 import spark.Request;
@@ -38,6 +40,7 @@ public class Main {
         UsuarioService usuarioService = new UsuarioService();
         PostService postService = new PostService();
         ComentarioService comentarioService = new ComentarioService();
+        MegustaService megustaService = new MegustaService();
         //staticFiles.location("/Template");
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
@@ -81,10 +84,10 @@ public class Main {
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/home.ftl");
             List<Comentario> comentarios = comentarioService.getComentarios();
-          //  List<Megusta> reaccions = reaccionORM.getReacciones();
+            List<Megusta> megusta = megustaService.getMegustaes();
             atr.put("usuario",usuario);
             atr.put("comentarios",comentarios);
-          //  atr.put("reacciones",reaccions);
+            atr.put("likes",megusta);
             template.process(atr, writer);
             return writer;
         });
