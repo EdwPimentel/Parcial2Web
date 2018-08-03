@@ -1,6 +1,7 @@
 package serivicios;
 
 import modelo.Album;
+import modelo.Post;
 import modelo.Usuario;
 
 import javax.persistence.*;
@@ -28,5 +29,15 @@ public class AlbumService {
         em.persist(p);
         em.getTransaction().commit();
 
+    }
+    public List<Post> getAlbumsPosts(){
+
+        try{
+            Query query = em.createQuery("select p from Post p where p.album != null ");
+            return (List<Post>)query.getResultList();
+
+        }catch (NoResultException e){
+            return null;
+        }
     }
 }

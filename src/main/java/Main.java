@@ -78,12 +78,47 @@ public class Main {
             template.process(atr, writer);
             return writer;
         });
+        get("/friendlist", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template template = configuration.getTemplate("Template/friendlist.ftl");
+            atr.put("usuario",usuario);
+            atr.put("friendList",usuario.getFriendlist());
+            template.process(atr, writer);
+            return writer;
+        });
+
+        get("/timeline", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template template = configuration.getTemplate("Template/timeline.ftl");
+
+
+            if(usuario.getFriendlist() != null){
+                for(int i = 0; i < usuario.getFriendlist().size(); i++){
+                    smartCombine(usuario.getWall(),usuario.getFriendlist().get(i).getWall());
+                }
+            }
+            List<Post> wall = usuario.getWall();
+            List<Comentario> comentarios = comentarioService.getComentarios();
+            List<Megusta> megusta = megustaService.getMegusta();
+            atr.put("usuario",usuario);
+            atr.put("wall",wall);
+            atr.put("comentarios",comentarios);
+            atr.put("megusta",megusta);
+            template.process(atr,writer);
+            return writer;
+        });
+
         get("/albums", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             StringWriter writer = new StringWriter();
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("Template/album.ftl");
             atr.put("usuario",usuario);
+            atr.put("aPost",albumService.getAlbumsPosts());
             template.process(atr, writer);
             return writer;
         });
@@ -107,7 +142,7 @@ public class Main {
             for (Part part : parts) {
                 if(part.getName().equals("myfile")){
                     try (InputStream inputStream = part.getInputStream()) {
-                        OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp" + part.getSubmittedFileName());
+                        OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + part.getSubmittedFileName());
                         IOUtils.copy(inputStream, outputStream);
                         outputStream.close();
 
@@ -119,11 +154,14 @@ public class Main {
                         post.setAlbum(album);
                         postService.savePost(post);
 
+
                     }
                 }
 
 
             }
+            usuarioService.newAlbum(usuario,album);
+            res.redirect("/albums");
             return"";
 
         });
@@ -309,6 +347,8 @@ public class Main {
             return "";
         });
 
+
+
         post("/post/:id/like", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             String postId = req.params("id").replace(",", "");
@@ -339,5 +379,13 @@ public class Main {
         });
 
 
+
+    }
+    public static void smartCombine(List<Post> first, List<Post> second) {
+        for(Post num : second) {
+            if(!first.contains(num)) {
+                first.add(num);
+            }
+        }
     }
 }

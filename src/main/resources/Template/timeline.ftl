@@ -27,7 +27,7 @@
                 </ul>
 
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="/timeline"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
+                    <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
                     <li><a href="/albums"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
                     <li><a href="/friendlist"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
                 </ul>
@@ -85,11 +85,11 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="/logout"><i class="glyphicon glyphicon-user"></i> Logout</a>
-                               <!-- <ul class="dropdown-menu">
-                                    <li><a href="/logout">Log Out</a></li>
-                                </ul>
-                            </li>
-                        </ul>-->
+                                <!-- <ul class="dropdown-menu">
+                                     <li><a href="/logout">Log Out</a></li>
+                                 </ul>
+                             </li>
+                         </ul>-->
                     </nav>
                 </div>
                 <!-- /top nav -->
@@ -104,23 +104,23 @@
 
                             <!-- main col right -->
                             <div class="col-sm-7 col-sm-offset-2">
-                           <h3 align="center">${usuario.nombre} ${usuario.apellido}</h3>
+                                <h3 align="center">${usuario.nombre} ${usuario.apellido}</h3>
                                 <div class="well">
-    <!--aqui-->                     <form action="/newPost" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
-                                        <h4>What's New</h4>
-                                        <div class="form-group" style="padding:14px;">
-                                            <textarea class="form-control" placeholder="Update your status" name="descripcion"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-right" type="button">Post</button>
+                                    <!--aqui-->                     <form action="/newPost" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                                    <h4>What's New</h4>
+                                    <div class="form-group" style="padding:14px;">
+                                        <textarea class="form-control" placeholder="Update your status" name="descripcion"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary pull-right" type="button">Post</button>
                                     <ul class="list-inline"><li><label for="myfile"></label><input type="file" name="myfile"></li><!--<button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button>--></ul>
-                                    </form>
+                                </form>
                                 </div>
                                 <#if usuario.wall??>
                                     <#list usuario.wall as posts>
 
                                         <div class="panel panel-default">
                                             <div class="panel-body">
-                                                <h4>${usuario.nombre} ${usuario.apellido}</h4>
+                                                <h4>${posts.usuario.nombre} ${posts.usuario.apellido}</h4>
                                                 <#if posts.img!="">
                                                <img src="upload/temp/${posts.img}" class="img-fluid img-thumbnail">
                                                 </#if>
@@ -133,13 +133,13 @@
                                                 <#if megusta??>
                                                     <#assign yes =0>
                                                     <#list megusta as gusta>
-                                                    <#if gusta.post??>
-                                                        <#if gusta.post.id == posts.id>
-                                                            <#if gusta.megusta == true>
-                                                            <#assign yes = 1>
+                                                        <#if gusta.post??>
+                                                            <#if gusta.post.id == posts.id>
+                                                                <#if gusta.megusta == true>
+                                                                    <#assign yes = 1>
+                                                                </#if>
                                                             </#if>
                                                         </#if>
-                                                    </#if>
                                                     </#list>
                                                 </#if>
                                                 <#if yes == 1>
@@ -154,22 +154,22 @@
                                                 <hr>
                                         <#if comentarios??>
                                             <#list comentarios as com>
-                                            <#if com.post.id == posts.id>
-                                            <#assign yes =0>
+                                                <#if com.post.id == posts.id>
+                                                    <#assign yes =0>
                                                 <ul>
                                                     <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}<form action="/comentario/${com.id}/like" method="post">
                                                       <#if megusta??>
                                                           <#list megusta as gusta>
-                                                          <#if gusta.comentario??>
-                                                        <#if com.id==gusta.comentario.id>
-                                                            <#if gusta.megusta==true>
-                                                            <#assign yes = 1>
-                                                            </#if>
-                                                        </#if>
-                                                       </#if>
+                                                              <#if gusta.comentario??>
+                                                                  <#if com.id==gusta.comentario.id>
+                                                                      <#if gusta.megusta==true>
+                                                                          <#assign yes = 1>
+                                                                      </#if>
+                                                                  </#if>
+                                                              </#if>
                                                           </#list>
 
-                                                     </#if>
+                                                      </#if>
                                                         <#if yes = 1>
                                                        <button type="submit" class="btn btn-primary"> Like</button>
                                                         <#else>
@@ -181,7 +181,7 @@
                                                     </form> </li>
 
                                                 </ul>
-                                            </#if>
+                                                </#if>
 
                                             </#list>
                                         </#if>
@@ -191,7 +191,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-btn">
                                                             <div class="input-group-btn">
-                                             <button class="btn btn-default">+tag</button><input class="form-control" placeholder="Add a comment.." type="text" name="texto">
+                                                                <button class="btn btn-default">+tag</button><input class="form-control" placeholder="Add a comment.." type="text" name="texto">
                                                             </div>
 
                                                         </div>
@@ -248,24 +248,24 @@
                                 </p>
                             </div>
                         </div>
-                        </div><!--/row-->
+                    </div><!--/row-->
 
-                        <hr>
+                    <hr>
 
-                        <h4 class="text-center">
-                            <a href="http://usebootstrap.com/theme/facebook" target="ext">Download this Template @Bootply</a>
-                        </h4>
+                    <h4 class="text-center">
+                        <a href="http://usebootstrap.com/theme/facebook" target="ext">Download this Template @Bootply</a>
+                    </h4>
 
-                        <hr>
+                    <hr>
 
 
-                    </div><!-- /col-9 -->
-                </div><!-- /padding -->
-            </div>
-            <!-- /main -->
-
+                </div><!-- /col-9 -->
+            </div><!-- /padding -->
         </div>
+        <!-- /main -->
+
     </div>
+</div>
 </div>
 
 
@@ -297,7 +297,7 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-            $('[data-toggle=offcanvas]').click(function() {
+        $('[data-toggle=offcanvas]').click(function() {
             $(this).toggleClass('visible-xs text-center');
             $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
             $('.row-offcanvas').toggleClass('active');
