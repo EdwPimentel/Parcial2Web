@@ -14,6 +14,17 @@ public class Post {
 
     private String img;
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Album album;
+
     public String getImg() {
         return img;
     }

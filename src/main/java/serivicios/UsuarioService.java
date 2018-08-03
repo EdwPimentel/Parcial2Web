@@ -1,5 +1,6 @@
 package serivicios;
 
+import modelo.Album;
 import modelo.Post;
 import modelo.Usuario;
 
@@ -87,5 +88,13 @@ public class UsuarioService {
 
     }
 
+    public void newAlbum(Usuario editar, Album album){
+        em.getTransaction().begin();
+        Usuario u = em.find(Usuario.class,editar.getId());
+        u.getAlbums().add(album);
+        em.merge(u);
+        em.getTransaction().commit();
+
+    }
 
 }

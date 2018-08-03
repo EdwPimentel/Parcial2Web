@@ -28,7 +28,7 @@
 
                 <ul class="nav hidden-xs" id="lg-menu">
                     <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
-                    <li><a href="#stories"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
+                    <li><a href="/albums"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
                 </ul>
                 <ul class="list-unstyled hidden-xs" id="sidebar-footer">
@@ -73,7 +73,7 @@
                         </form>
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                                <a href="/home"><i class="glyphicon glyphicon-home"></i> Home</a>
                             </li>
                             <li>
                                 <a href="/sugerencias" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Sugerencia de amigos</a>
@@ -114,9 +114,6 @@
                                         <button type="submit" class="btn btn-primary pull-right" type="button">Post</button>
                                     <ul class="list-inline"><li><label for="myfile"></label><input type="file" name="myfile"></li><!--<button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button>--></ul>
                                     </form>
-                                    <!--form action="/upload" method="post" enctype="multipart/form-data">
-                                        <ul class="list-inline"><li><label for="myfile"></label><input type="file" id="myfile" name="myfile"></input></li><button type="submit" id="buttonUpload" value="Upload"><i class="glyphicon glyphicon-upload"></i>Upload</button></ul>
-                                    </form>-->
                                 </div>
                                 <#if usuario.wall??>
                                     <#list usuario.wall as posts>

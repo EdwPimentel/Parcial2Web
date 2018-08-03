@@ -24,6 +24,18 @@ public class Usuario {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Posts_Usuario", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "listaPostUsuario_id_PostUsuario") })
     private List<Post> wall;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "Album_Post", joinColumns = { @JoinColumn(name = "Id_usuarioAlbum") }, inverseJoinColumns = { @JoinColumn(name = "Album_ID_post") })
+    private List<Album> albums;
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Amigos_Usuarios", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "listaAmigoUsuario_id_amigoUsuario") })
     private List<Usuario> friendlist;
@@ -128,6 +140,8 @@ public class Usuario {
     public void setWall(List<Post> wall) {
         this.wall = wall;
     }
+
+
 }
 
 

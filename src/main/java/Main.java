@@ -5,19 +5,14 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 import freemarker.template.Template;
-import modelo.Comentario;
-import modelo.Megusta;
-import modelo.Post;
-import modelo.Usuario;
+import modelo.*;
 import org.jasypt.util.text.BasicTextEncryptor;
-import serivicios.ComentarioService;
-import serivicios.MegustaService;
-import serivicios.PostService;
-import serivicios.UsuarioService;
+import serivicios.*;
 import spark.Session;
 import spark.utils.IOUtils;
 
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 
 import static spark.Spark.*;
@@ -34,6 +29,7 @@ public class Main {
         PostService postService = new PostService();
         ComentarioService comentarioService = new ComentarioService();
         MegustaService megustaService = new MegustaService();
+        AlbumService albumService = new AlbumService();
         //staticFiles.location("/Template");
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
@@ -81,6 +77,55 @@ public class Main {
             atr.put("sugerAmigo",usuarioService.sugerirAmigos(usuario));
             template.process(atr, writer);
             return writer;
+        });
+        get("/albums", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template template = configuration.getTemplate("Template/album.ftl");
+            atr.put("usuario",usuario);
+            template.process(atr, writer);
+            return writer;
+        });
+        post("/newAlbum", (req, res) -> {
+
+            Usuario usuario = req.session(true).attribute("usuario");
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp"));
+            Collection<Part> parts = null;
+
+            String descripcion = req.queryParams("descripcion");
+            Album album = new Album();
+            album.setUsuario(usuario);
+            album.setDescripcion(descripcion);
+            albumService.guardarAlbum(album);
+            try {
+                parts = req.raw().getParts();
+            } catch (IOException | ServletException e2) {
+                // TODO Auto-generated catch block
+                e2.printStackTrace();
+            }
+            for (Part part : parts) {
+                if(part.getName().equals("myfile")){
+                    try (InputStream inputStream = part.getInputStream()) {
+                        OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp" + part.getSubmittedFileName());
+                        IOUtils.copy(inputStream, outputStream);
+                        outputStream.close();
+
+                        Post post = new Post();
+                        post.setDescripcion("n/a");
+                        post.setUsuario(usuario);
+                        System.out.println(part.getSubmittedFileName());
+                        post.setImg(part.getSubmittedFileName());
+                        post.setAlbum(album);
+                        postService.savePost(post);
+
+                    }
+                }
+
+
+            }
+            return"";
+
         });
 
         post("/addFriend/:idAm", (req, res) -> {
