@@ -10,6 +10,15 @@ public class Megusta {
     @ManyToOne
     @JoinColumn(name = "ID_Usuario")
     private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @ManyToOne
     @JoinColumn(name = "ID_Comentario")
     private Comentario comentario;
@@ -20,7 +29,7 @@ public class Megusta {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    private boolean megusta;
+    private boolean megusta=false;
 
     public long getId() {
         return id;

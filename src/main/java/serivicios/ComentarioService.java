@@ -23,4 +23,9 @@ public class ComentarioService {
         }
 
     }
+    public Comentario findComentario(Long id){
+        Query query = em.createQuery("select c from Comentario c where c.id = :id")
+                .setParameter("id", id);
+        return (Comentario) query.getSingleResult();
+    }
 }

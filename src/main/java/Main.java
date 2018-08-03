@@ -1,12 +1,7 @@
 import freemarker.template.Configuration;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.text.NumberFormat;
 import java.util.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import freemarker.template.Template;
@@ -19,12 +14,10 @@ import serivicios.ComentarioService;
 import serivicios.MegustaService;
 import serivicios.PostService;
 import serivicios.UsuarioService;
-import spark.Request;
 import spark.Session;
 import spark.utils.IOUtils;
 
 import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 
 import static spark.Spark.*;
@@ -87,7 +80,7 @@ public class Main {
             List<Megusta> megusta = megustaService.getMegusta();
             atr.put("usuario",usuario);
             atr.put("comentarios",comentarios);
-            atr.put("likes",megusta);
+            atr.put("megusta",megusta);
             template.process(atr, writer);
             return writer;
         });
@@ -205,6 +198,35 @@ public class Main {
                 req.session().attribute("usuario", usuario);
                 res.redirect("/");
                 return "";
+            }
+
+            return "";
+        });
+
+        post("/comentario/:id/like", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            String comentarioId = req.params("id").replace(",", "");
+            Long idComentario = Long.parseLong(comentarioId);
+            Megusta megusta = new Megusta();
+            megusta.setUsuario(usuario);
+            megusta.setMegusta(true);
+            //Megusta.setTiempo(getFechaActual());
+            Comentario comentario = comentarioService.findComentario(idComentario);
+            megusta.setComentario(comentario);
+            Megusta re = megustaService.ComentarioLikeCheck(usuario,comentario);
+
+            if(re == null){
+                megustaService.guardarLike(megusta);
+                    res.redirect("/home");
+
+            }else{
+                megustaService.deleteMegusta(re);
+
+                if(!re.isMegusta())
+                    megustaService.updateMegusta(re,true);
+
+                        res.redirect("/home");
+
             }
 
             return "";

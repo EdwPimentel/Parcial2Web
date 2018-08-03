@@ -133,11 +133,33 @@
                                                 <p>${posts.descripcion}</p>
 
                                                 <hr>
+                                                <button class="btn btn-default">Like</button>
+                                                <hr>
                                         <#if comentarios??>
                                             <#list comentarios as com>
                                             <#if com.post.id == posts.id>
+                                            <#assign yes =0>
                                                 <ul>
-                                                    <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}</li>
+                                                    <li><b>${com.usuario.nombre} ${com.usuario.apellido}</b> ${com.texto}<form action="/comentario/${com.id}/like" method="post">
+                                                      <#if megusta??>
+                                                          <#list megusta as gusta>
+                                                        <#if com.id==gusta.comentario.id>
+                                                            <#if gusta.megusta==true>
+                                                            <#assign yes = 1>
+                                                            </#if>
+                                                        </#if>
+                                                          </#list>
+
+                                                     </#if>
+                                                        <#if yes = 1>
+                                                       <button type="submit" class="btn btn-primary"> Like</button>
+                                                        <#else>
+                                                       <button type="submit" class="btn btn-default"> Like</button>
+                                                        </#if>
+
+
+
+                                                    </form> </li>
 
                                                 </ul>
                                             </#if>
