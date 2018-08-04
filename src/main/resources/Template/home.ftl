@@ -79,7 +79,7 @@
                                 <a href="/sugerencias" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Sugerencia de amigos</a>
                             </li>
                             <li>
-                                <a href="#"><span class="badge">badge</span></a>
+                                <a href="/location"><span class="badge">Location</span></a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

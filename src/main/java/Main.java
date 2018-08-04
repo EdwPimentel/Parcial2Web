@@ -1,3 +1,4 @@
+import com.google.gson.JsonObject;
 import freemarker.template.Configuration;
 
 import java.io.*;
@@ -122,6 +123,15 @@ public class Main {
             template.process(atr, writer);
             return writer;
         });
+        get("/location", (req, res) -> {
+            Usuario usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template template = configuration.getTemplate("Template/location.ftl");
+            atr.put("usuario",usuario);
+            template.process(atr, writer);
+            return writer;
+        });
         post("/newAlbum", (req, res) -> {
 
             Usuario usuario = req.session(true).attribute("usuario");
@@ -199,6 +209,20 @@ public class Main {
             template.process(atr, writer);
             return writer;
         });
+
+        get("/listaPost/:user", (req, res) -> {
+
+            Usuario u = usuarioService.checkUser(req.params("user"));
+            List<JsonObject> js = new ArrayList<>();
+            for(int i = 0; i < u.getWall().size(); i++){
+                JsonObject j = new JsonObject();
+                j.addProperty("id",u.getWall().get(i).getId());
+                j.addProperty("descripcion",u.getWall().get(i).getDescripcion());
+                js.add(j);
+            }
+
+            return js;
+        });
         get("/logout", (req, res) -> {
             StringWriter writer = new StringWriter();
             Map<String, Object> atr = new HashMap<>();
@@ -230,6 +254,7 @@ public class Main {
             }
             return "";
         });
+
         post("/newPost", (req, res) -> {
             req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp/"));
 
@@ -265,6 +290,42 @@ public class Main {
             usuarioService.newPost(usuario, post);
             res.redirect("/home");
             return "";
+
+        });
+        post("crearPost/:user",(req, res) ->{
+
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp/"));
+
+            if(!req.queryParams("myfile").equalsIgnoreCase("noim")){
+                Part filePart = req.raw().getPart("myfile");
+                InputStream inputStream = filePart.getInputStream();
+
+                OutputStream outputStream = new FileOutputStream("src/main/resources/Template/upload/temp/" + filePart.getSubmittedFileName());
+                IOUtils.copy(inputStream, outputStream);
+                outputStream.close();
+
+                String texto = req.queryParams("descripcion");
+                String usuario = req.params("user");
+                Usuario u = usuarioService.checkUser(usuario);
+                Post post = new Post();
+                post.setDescripcion(texto);
+                post.setUsuario(u);
+                post.setImg(filePart.getSubmittedFileName());
+                postService.savePost(post);
+                usuarioService.newPost(u,post);
+                return "Post creado";
+            }else{
+                String texto = req.queryParams("descripcion");
+                String usuario = req.params("user");
+                Usuario u = usuarioService.checkUser(usuario);
+                Post post = new Post();
+                post.setDescripcion("descripcion");
+                post.setUsuario(u);
+                post.setImg("");
+                postService.savePost(post);
+                usuarioService.newPost(u,post);
+                return "Post creado";
+            }
 
         });
 
