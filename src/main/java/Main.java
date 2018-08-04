@@ -210,9 +210,9 @@ public class Main {
             return writer;
         });
 
-        get("/listaPost/:user", (req, res) -> {
+        get("/listaPost/:user/:pass", (req, res) -> {
 
-            Usuario u = usuarioService.checkUser(req.params("user"));
+            Usuario u = usuarioService.login(req.params("user"),req.params("pass"));
             List<JsonObject> js = new ArrayList<>();
             for(int i = 0; i < u.getWall().size(); i++){
                 JsonObject j = new JsonObject();
