@@ -9,7 +9,6 @@ import java.util.List;
 public class Usuario {
     @Id
     @GeneratedValue
-
     private long id;
     private String Nombre;
     private String Apellido;

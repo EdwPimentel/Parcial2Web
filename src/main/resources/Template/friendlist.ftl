@@ -108,10 +108,12 @@
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Friendlist</h4></div>
+                                    <#if friendList??>
                                     <#list friendList as Feli>
                                         <div class="panel-body">
                                         <li>${Feli.nombre} ${Feli.apellido} </li>
                                     </#list>
+                                    </#if>
                                 </div>
 
                             </div>

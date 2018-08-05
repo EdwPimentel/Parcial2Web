@@ -97,6 +97,7 @@ public class Main {
             Template template = configuration.getTemplate("Template/sugerencias.ftl");
             atr.put("usuario",usuario);
             atr.put("sugerAmigo",usuarioService.sugerirAmigos(usuario));
+            atr.put("friendlist",usuario.getFriendlist());
             template.process(atr, writer);
             return writer;
         });

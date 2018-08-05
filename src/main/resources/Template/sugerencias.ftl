@@ -109,18 +109,15 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Posibles amigos</h4></div>
                                         <#list sugerAmigo as sugMa>
-                                        <#list usuario.friendlist as usfren>
-                                        <#if sugMa.id!=usfren.id>
-                                            <#if sugMa.id != usuario.id>
+                                                <#if sugMa.id != usuario.id>
                                             <form action="/addFriend/${sugMa.id}" method="post">
                                                 <div class="panel-body">
                                                     <li>${sugMa.nombre} ${sugMa.apellido} </li><button type="submit" class="btn btn-primary btn-sm">Agregar</button>
                                             </form>
-                                        </#if>
-                                        </#if>
+                                            </#if>
 
-                                        </#list>
-                                        </#list>
+                                            </#list>
+
 
                                     </div>
 
