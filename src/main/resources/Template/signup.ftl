@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="country" class="col-sm-4 control-label">Country</label>
+            <label for="country" class="col-sm-4 control-label">Place of Birth</label>
             <div class="col-sm-5">
                 <select name="lugarNac" class="form-control">
                     <option>Republica Dominicana</option>
@@ -54,7 +54,36 @@
                     <option>Cuba</option>
                 </select>
             </div>
-        </div> <!-- /.form-group -->
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Current Country</label>
+            <div class="col-sm-5">
+                <select name="lugarVive" class="form-control">
+                    <option>Republica Dominicana</option>
+                    <option>Estados Unidos</option>
+                    <option>Cuba</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Current Residence</label>
+            <div class="col-sm-5">
+                <input required="required" type="text" name="lugarVive" placeholder="Current Country" class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Alma Mater</label>
+            <div class="col-sm-5">
+                <input required="required" type="text" name="lugarEstudio" placeholder="PUCMM" class="form-control" autofocus>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Current Workplace</label>
+            <div class="col-sm-5">
+                <input required="required" type="text" name="lugarTrabajo" placeholder="Workplace" class="form-control" autofocus>
+            </div>
+        </div>
+        <!-- /.form-group -->
         <div class="form-group">
             <div class="col-sm-3 col-sm-offset-5">
                 <button type="submit" class="btn btn-primary btn-block">Register</button>

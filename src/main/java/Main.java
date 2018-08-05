@@ -377,6 +377,9 @@ public class Main {
             String apellido = req.queryParams("apellido");
             String fechaNacimiento = req.queryParams("birthDate");
             String lugarNacimiento = req.queryParams("lugarNac");
+            String lugarVive = req.queryParams("lugarVive");
+            String lugarTrabajo = req.queryParams("lugarTrabajo");
+            String lugarEstudio = req.queryParams("lugarEstudio");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date fechaNac = sdf.parse(fechaNacimiento);
 
@@ -391,6 +394,9 @@ public class Main {
                 usuario.setFechaNac(fechaNac);
                 usuario.setApellido(apellido);
                 usuario.setLugarNac(lugarNacimiento);
+                usuario.setLugarVive(lugarVive);
+                usuario.setLugarEstudio(lugarEstudio);
+                usuario.setLugarTrabajo(lugarTrabajo);
                 usuario.setWall(new ArrayList<>());
 
                 usuarioService.saveUser(usuario);
