@@ -56,19 +56,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-4 control-label">Current Country</label>
-            <div class="col-sm-5">
-                <select name="lugarVive" class="form-control">
-                    <option>Republica Dominicana</option>
-                    <option>Estados Unidos</option>
-                    <option>Cuba</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-sm-4 control-label">Current Residence</label>
             <div class="col-sm-5">
-                <input required="required" type="text" name="lugarVive" placeholder="Current Country" class="form-control" autofocus>
+                <input required="required" type="text" name="lugarVive" class="form-control" autofocus>
             </div>
         </div>
         <div class="form-group">
