@@ -20,13 +20,10 @@ public class SoapData {
         }else{
             ArrayList<Post> ps = new ArrayList<>();
             for(Post p : filtrar){
-                if(!p.getDescripcion().equalsIgnoreCase("n/a")){
                     Post post = new Post();
                     post.setId(p.getId());
                     post.setDescripcion(p.getDescripcion());
                     ps.add(post);
-                }
-
             }
             return ps;
         }
