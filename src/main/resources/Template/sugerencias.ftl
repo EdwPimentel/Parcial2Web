@@ -27,9 +27,9 @@
                 </ul>
 
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
-                    <li><a href="#stories"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
+                    <li class="active"><a href="/timeline"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
+                    <li><a href="/albums"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
+                    <li><a href="/friendlist"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
                 </ul>
                 <ul class="list-unstyled hidden-xs" id="sidebar-footer">
                     <li>
@@ -79,7 +79,7 @@
                                 <a href="/sugerencias" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Sugerencia de amigos</a>
                             </li>
                             <li>
-                                <a href="#"><span class="badge">badge</span></a>
+                                <a href="/location"><span class="badge">badge</span></a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -108,14 +108,20 @@
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Posibles amigos</h4></div>
-                                    <#list sugerAmigo as sugMa>
-                                    <form action="/addFriend/${sugMa.id}" method="post">
-                                    <div class="panel-body">
-                                    <#if usuario.id!=sugMa.id>
-                                    <li>${sugMa.nombre} ${sugMa.apellido} </li><button type="submit" class="btn btn-primary btn-sm">Agregar</button>
-                                    </#if>
-                                    </form>
-                                    </#list>
+                                        <#list sugerAmigo as sugMa>
+                                        <#list usuario.friendlist as usfren>
+                                        <#if sugMa.id!=usfren.id>
+                                            <#if sugMa.id != usuario.id>
+                                            <form action="/addFriend/${sugMa.id}" method="post">
+                                                <div class="panel-body">
+                                                    <li>${sugMa.nombre} ${sugMa.apellido} </li><button type="submit" class="btn btn-primary btn-sm">Agregar</button>
+                                            </form>
+                                        </#if>
+                                        </#if>
+
+                                        </#list>
+                                        </#list>
+
                                     </div>
 
                                 </div>

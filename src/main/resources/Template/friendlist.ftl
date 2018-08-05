@@ -27,9 +27,9 @@
                 </ul>
 
                 <ul class="nav hidden-xs" id="lg-menu">
-                    <li class="active"><a href="#featured"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
-                    <li><a href="#stories"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
+                    <li class="active"><a href="/timeline"><i class="glyphicon glyphicon-list-alt"></i> Timeline</a></li>
+                    <li><a href="/albums"><i class="glyphicon glyphicon-picture"></i> Albums</a></li>
+                    <li><a href="/friendlist"><i class="glyphicon glyphicon-list"></i> Friends</a></li>
                 </ul>
                 <ul class="list-unstyled hidden-xs" id="sidebar-footer">
                     <li>
