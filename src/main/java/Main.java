@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
 import static spark.Spark.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
 
         //staticFiles.externalLocation("src/main/resources/Template/upload/temp");
@@ -35,6 +35,7 @@ public class Main {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
 
+        SoapServer.init();
 
         get("/", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
@@ -292,6 +293,9 @@ public class Main {
             return "";
 
         });
+
+
+
         post("crearPost/:user",(req, res) ->{
 
             req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("src/main/resources/Template/upload/temp/"));
