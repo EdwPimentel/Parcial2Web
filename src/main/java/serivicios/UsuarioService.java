@@ -23,6 +23,10 @@ public class UsuarioService {
         }
 
     }
+    public Long cantUsuarios(){
+        Long count = ((Number)em.createNativeQuery("select count(Usuario.id) from USUARIO").getSingleResult()).longValue();
+        return count;
+    }
     public Usuario checkUser(String name){
 
         try{

@@ -37,6 +37,26 @@ public class Main {
 
         SoapServer.init();
 
+        if(usuarioService.cantUsuarios() == 0){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Usuario admin = new Usuario();
+            admin.setUsername("admin");
+            admin.setPassword("admin");
+            admin.setAdmin(true);
+            admin.setWall(new ArrayList<>());
+            admin.setNombre("Admin");
+            admin.setApellido("Adminson");
+            admin.setFechaNac(sdf.parse("1996-10-10"));
+            admin.setFriendlist(new ArrayList<>());
+            admin.setAlbums(new ArrayList<>());
+            admin.setLugarTrabajo("Colmado tio");
+            admin.setLugarVive("Republica Dominicana");
+            admin.setLugarEstudio("PUCMM");
+            admin.setLugarNac("Republica Dominicana");
+            usuarioService.saveUser(admin);
+            System.out.println("Admin creado.");
+        }
+
         get("/", (req, res) -> {
             Usuario usuario = req.session(true).attribute("usuario");
             if (usuario == null && req.cookie("user") != null) {
