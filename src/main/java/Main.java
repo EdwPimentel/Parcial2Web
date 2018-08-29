@@ -22,7 +22,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        //staticFiles.externalLocation("src/main/resources/Template/upload/temp");
+        //Final Checked-8/29
         staticFiles.externalLocation("src/main/resources/Template");
 
 
@@ -31,7 +31,6 @@ public class Main {
         ComentarioService comentarioService = new ComentarioService();
         MegustaService megustaService = new MegustaService();
         AlbumService albumService = new AlbumService();
-        //staticFiles.location("/Template");
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
 
