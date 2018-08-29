@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'application'
 apply plugin: 'java'
 
-mainClassName = 'main.Main'
+mainClassName = 'Main.Main'
 
 group 'parcial2'
 version '1.0-SNAPSHOT'
